@@ -1,5 +1,18 @@
+whoami
+| whoami
+; whoami
 ; whoami #
-` whoami #
-$(whoami)
-&& whoami #
-|| whoami #
+' whoami
+' || whoami
+' & whoami
+' && whoami
+'; whoami
+" whoami
+" || whoami
+" | whoami
+" & whoami
+" && whoami
+"; whoami
+$(`whoami`)
+& whoami
+&& whoami

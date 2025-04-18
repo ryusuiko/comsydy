@@ -18,6 +18,12 @@ def findvars(program: list):
             pass
     return test
 
+def moduleline(line: str):
+    if re.match("^import", line) or re.match("^from", line):
+        return line
+    else:
+        return False
+
 def findmodules(program: list):
     modules = list() # [module] or [module, as]
     from_modules = dict() # module: [funcs]

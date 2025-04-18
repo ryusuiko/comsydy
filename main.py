@@ -15,6 +15,15 @@ def main():
     fullprogram = ''.join(program)
     globalvars = findvars(program)
     modulesinfo = findmodules(program)
+    modulelines = str()
+
+    def modules():
+        nonlocal modulelines
+        for line in program:
+            if moduleline(line):
+                modulelines = line + "\n"
+
+    modules()
 
     #### Static Analysis ####
 
@@ -37,7 +46,7 @@ def main():
                     """)
 
     def magicDAST(funcname: str, funccall: str, funcbody: str, vars: list, varsbody: str):
-        toExec = varsbody + '\n' + funcbody + '\n' + funccall
+        toExec = modulelines + '\n' + varsbody + '\n' + funcbody + '\n' + funccall
 
         #### There DAST starts ####
 

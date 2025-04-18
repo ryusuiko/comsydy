@@ -26,11 +26,14 @@
     },
     "subprocess-popen": {
       "name": "subprocess-popen",
-      "description": "Using input() in subprocess.popen() to spawn new process",
+      "description": "Using input() in subprocess.Popen() to spawn new process",
       "recommendation": "Do not use user input in subprocess.popen() or sanitize it",
       "regex-patterns": {
-        "pattern1": "((Call\\(func=Name\\(id='popen',).*(right=Name\\(id='[a-zA-Z0-9_]*',))",
-        "pattern2": "((Call\\(func=Name\\(id='popen',).*(func=Name\\(id='input',))"
+        "pattern1": "((Call\\(func=Name\\(id='Popen',).*(right=Name\\(id='[a-zA-Z0-9_]*',))",
+        "pattern2": "((Call\\(func=Name\\(id='Popen',).*(args=[Name\\(id='[a-zA-Z0-9_]*',))",
+        "pattern3": "((Call\\(func=Name\\(id='Popen',).*(func=Name\\(id='input',))",
+        "pattern4": "((Call\\(func=.*\\(id='subprocess',.*attr='Popen'.*).*(id='input',))",
+        "pattern5": "((Call\\(func=.*\\(id='subprocess',.*attr='Popen'.*).*(id='[a-zA-Z0-9_]*',))"
       }
     },
     "subprocess-call": {
@@ -39,7 +42,10 @@
       "recommendation": "Do not use user input in subprocess.call() or sanitize it",
       "regex-patterns": {
         "pattern1": "((Call\\(func=Name\\(id='call',).*(right=Name\\(id='[a-zA-Z0-9_]*',))",
-        "pattern2": "((Call\\(func=Name\\(id='call',).*(func=Name\\(id='input',))"
+        "pattern2": "((Call\\(func=Name\\(id='call',).*(args=[Name\\(id='[a-zA-Z0-9_]*',))",
+        "pattern3": "((Call\\(func=Name\\(id='call',).*(func=Name\\(id='input',))",
+        "pattern4": "((Call\\(func=.*\\(id='subprocess',.*attr='call'.*).*(id='input',))",
+        "pattern5": "((Call\\(func=.*\\(id='subprocess',.*attr='call'.*).*(id='[a-zA-Z0-9_]*',))"
       }
     },
     "subprocess-check_call": {
@@ -48,7 +54,10 @@
       "recommendation": "Do not use user input in subprocess.check_call() or sanitize it",
       "regex-patterns": {
         "pattern1": "((Call\\(func=Name\\(id='check_call',).*(right=Name\\(id='[a-zA-Z0-9_]*',))",
-        "pattern2": "((Call\\(func=Name\\(id='check_call',).*(func=Name\\(id='input',))"
+        "pattern2": "((Call\\(func=Name\\(id='check_call',).*(args=[Name\\(id='[a-zA-Z0-9_]*',))",
+        "pattern3": "((Call\\(func=Name\\(id='check_call',).*(func=Name\\(id='input',))",
+        "pattern4": "((Call\\(func=.*\\(id='subprocess',.*attr='check_call'.*).*(id='input',))",
+        "pattern5": "((Call\\(func=.*\\(id='subprocess',.*attr='check_call'.*).*(id='[a-zA-Z0-9_]*',))"
       }
     },
     "subprocess-check_output": {
@@ -57,7 +66,10 @@
       "recommendation": "Do not use user input in subprocess.check_output() or sanitize it",
       "regex-patterns": {
         "pattern1": "((Call\\(func=Name\\(id='check_output',).*(right=Name\\(id='[a-zA-Z0-9_]*',))",
-        "pattern2": "((Call\\(func=Name\\(id='check_output',).*(func=Name\\(id='input',))"
+        "pattern2": "((Call\\(func=Name\\(id='check_output',).*(args=[Name\\(id='[a-zA-Z0-9_]*',))",
+        "pattern3": "((Call\\(func=Name\\(id='check_output',).*(func=Name\\(id='input',))",
+        "pattern4": "((Call\\(func=.*\\(id='subprocess',.*attr='check_output'.*).*(id='input',))",
+        "pattern5": "((Call\\(func=.*\\(id='subprocess',.*attr='check_output'.*).*(id='[a-zA-Z0-9_]*',))"
       }
     },
     "shell-true": {
@@ -68,29 +80,46 @@
         "pattern1": "keywords=\\[keyword\\(arg='shell', value=Constant\\(value=True\\)\\)\\]\\)\\]\\)\\)"
       }
     },
-    "os-system": {
-      "name": "os-system",
-      "description": "",
-      "recommendation": "",
+    "os-system-popen": {
+      "name": "os-system-popen",
+      "description": "Using input() in os.system() or os.popen()",
+      "recommendation": "Do not use input() or sanitize it",
       "regex-patterns": {
-        "pattern1": ""
+        "pattern1": "((Call\\(func=Name\\(id='system',).*(right=Name\\(id='[a-zA-Z0-9_]*',))",
+        "pattern2": "((Call\\(func=Name\\(id='system',).*(args=[Name\\(id='[a-zA-Z0-9_]*',))",
+        "pattern3": "((Call\\(func=Name\\(id='system',).*(func=Name\\(id='input',))",
+        "pattern4": "((Call\\(func=.*\\(id='os',.*attr='system'.*).*(id='input',))",
+        "pattern5": "((Call\\(func=.*\\(id='os',.*attr='system'.*).*(id='[a-zA-Z0-9_]*',))",
+        "pattern6": "((Call\\(func=Name\\(id='popen',).*(right=Name\\(id='[a-zA-Z0-9_]*',))",
+        "pattern7": "((Call\\(func=Name\\(id='popen',).*(args=[Name\\(id='[a-zA-Z0-9_]*',))",
+        "pattern8": "((Call\\(func=Name\\(id='popen',).*(func=Name\\(id='input',))",
+        "pattern9": "((Call\\(func=.*\\(id='os',.*attr='popen'.*).*(id='input',))",
+        "pattern10": "((Call\\(func=.*\\(id='os',.*attr='popen'.*).*(id='[a-zA-Z0-9_]*',))"
       }
     },
-    "asyncio-subprocess-exec": {
-      "name": "asyncio-subprocess-exec",
+    "asyncio-subprocess_exec": {
+      "name": "asyncio-subprocess_exec",
       "description": "Using input() in method subprocess_exec()",
       "recommendation": "Do not use input() or sanitize it",
       "regex-patterns": {
-        "pattern1": ""
+        "pattern1": "((Call\\(func=Name\\(id='subprocess_exec',).*(right=Name\\(id='[a-zA-Z0-9_]*',))",
+        "pattern2": "((Call\\(func=Name\\(id='subprocess_exec',).*(args=[Name\\(id='[a-zA-Z0-9_]*',))",
+        "pattern3": "((Call\\(func=Name\\(id='subprocess_exec',).*(func=Name\\(id='input',))",
+        "pattern4": "((Call\\(func=.*\\(id='asyncio',.*attr='subprocess_exec'.*).*(id='input',))",
+        "pattern5": "((Call\\(func=.*\\(id='asyncio',.*attr='subprocess_exec'.*).*(id='[a-zA-Z0-9_]*',))"
       }
     },
-    "asyncio-create-subprocess-exec": {
-        "name": "asyncio-create-subprocess-exec",
-        "description": "Using input() in asyncio.subprocess.create_subprocess_exec()",
-        "recommendation": "Do not use input() or sanitize it",
-        "regex-patterns": {
-          "pattern1": ""
-        }
+    "asyncio-create_subprocess_exec": {
+      "name": "asyncio-create_subprocess_exec",
+      "description": "Using input() in asyncio.subprocess.create_subprocess_exec()",
+      "recommendation": "Do not use input() or sanitize it",
+      "regex-patterns": {
+        "pattern1": "((Call\\(func=Name\\(.*='create_subprocess_exec',).*(right=Name\\(id='[a-zA-Z0-9_]*',))",
+        "pattern2": "((Call\\(func=Name\\(.*='create_subprocess_exec',).*(args=[Name\\(id='[a-zA-Z0-9_]*',))",
+        "pattern3": "((Call\\(func=Name\\(.*='create_subprocess_exec',).*(func=Name\\(id='input',))",
+        "pattern4": "((Call\\(func=.*\\(id='subprocess',.*attr='create_subprocess_exec'.*).*(id='input',))",
+        "pattern5": "((Call\\(func=.*\\(id='subprocess',.*attr='create_subprocess_exec'.*).*(id='[a-zA-Z0-9_]*',))"
+      }
     }
   }
 }
