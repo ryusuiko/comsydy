@@ -61,16 +61,19 @@ def main():
             for inp in inputs:
 
                 with redirect_stdout(io.StringIO()) as s:
-                    exec(toExec.replace("input()", f"\"{inp}\""))
+                    exec(toExec.replace("input()", f"\"{inp}\""), globals())
                 output = s.getvalue()
 
-                if run("whoami") in output:
-                    varsForOut = str(*vars)
+                with redirect_stdout(io.StringIO()) as r:
+                    run("whoami")
+                rs = r.getvalue()
+
+                if rs in output:
                     print(f"""
-                    Command Injection vulnerable function {funcname}()
-                    Variables: {varsForOut}
-                    Test input: {inp}
-                    """)
+Command Injection vulnerable function {funcname}()
+Variables: {vars}
+Test input: {inp}
+""")
         except Exception:
             pass
 

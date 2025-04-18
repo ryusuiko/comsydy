@@ -27,7 +27,7 @@
     "subprocess-popen": {
       "name": "subprocess-popen",
       "description": "Using input() in subprocess.Popen() to spawn new process",
-      "recommendation": "Do not use user input in subprocess.popen() or sanitize it",
+      "recommendation": "Do not use user input in subprocess.Popen() or sanitize it",
       "regex-patterns": {
         "pattern1": "((Call\\(func=Name\\(id='Popen',).*(right=Name\\(id='[a-zA-Z0-9_]*',))",
         "pattern2": "((Call\\(func=Name\\(id='Popen',).*(args=[Name\\(id='[a-zA-Z0-9_]*',))",
