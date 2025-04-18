@@ -4,6 +4,8 @@ from subprocess import run
 import os.path
 import json
 from src.linter import *
+import io
+from contextlib import redirect_stdout
 import shell
 
 def main():
@@ -57,7 +59,11 @@ def main():
 
         try:
             for inp in inputs:
-                output = exec(toExec.replace("input()", f"\"{inp}\""))
+
+                with redirect_stdout(io.StringIO()) as s:
+                    exec(toExec.replace("input()", f"\"{inp}\""))
+                output = s.getvalue()
+
                 if run("whoami") in output:
                     varsForOut = str(*vars)
                     print(f"""
