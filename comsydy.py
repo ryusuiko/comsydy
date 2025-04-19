@@ -29,8 +29,6 @@ def main():
 
     #### Static Analysis ####
 
-    # C:\Users\pinok\PycharmProjects\ast_example.py
-
     foundErrorAtSAST = False
 
     def SAST():
